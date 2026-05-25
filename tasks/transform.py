@@ -24,7 +24,7 @@ TASK_NAME = "transform"
 def read_from_s3(bucket: str, s3_key: str) -> list[dict]:
     s3 = boto3.client("s3")
     response = s3.get_object(Bucket=bucket, Key=s3_key)
-    content = response["Body"].read().decode("utf-8")
+    content = response["Body"].read().decode("latin-1")
     reader = csv.DictReader(StringIO(content))
     return list(reader)
 

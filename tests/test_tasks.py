@@ -5,7 +5,7 @@ Usan mocks para no depender de AWS, Postgres ni Airflow reales.
 """
 
 import sys
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 # Mockear airflow y sus providers ANTES de cualquier import de tasks
 # Necesario porque Airflow no corre nativamente en Windows
@@ -44,8 +44,22 @@ def test_generate_sales_order_ids_are_unique():
 
 # ─── Transform ────────────────────────────────────────────────────────────────
 
-from tasks.transform import transform_rows
+from tasks.transform import transform_rows, read_from_s3
 
+
+def test_read_from_s3_handles_latin1():
+    # simular un archivo con caracteres latin-1
+    content = "order_id,customer\n123,José\n".encode("latin-1")
+
+    mock_s3 = MagicMock()
+    mock_s3.get_object.return_value = {
+        "Body": MagicMock(read=MagicMock(return_value=content))
+    }
+
+    with patch("boto3.client", return_value=mock_s3):
+        rows = read_from_s3("bucket", "key")
+
+    assert rows[0]["customer"] == "José"
 
 def _mock_logger():
     return MagicMock()
