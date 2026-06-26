@@ -15,7 +15,7 @@ from datetime import date
 from faker import Faker
 
 sys.path.insert(0, "/opt/airflow")
-from infra.cloudwatch_logger import get_logger
+from dags.infra.cloudwatch_logger import get_logger
 
 TASK_NAME = "extract"
 fake = Faker("es_ES")

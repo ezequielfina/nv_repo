@@ -1,9 +1,8 @@
 from airflow.providers.amazon.aws.operators.glue import GlueJobOperator
-from airflow.providers.amazon.aws.sensors.s3 import S3KeySensor
 from airflow import DAG
 from datetime import datetime, timedelta
 
-from infra.slack_alert import send_slack_alert
+from dags.infra.slack_alert import send_slack_alert
 
 default_args = {
 "owner": "data-engineering",

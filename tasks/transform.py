@@ -16,7 +16,7 @@ from io import StringIO
 from datetime import date
 
 sys.path.insert(0, "/opt/airflow")
-from infra.cloudwatch_logger import get_logger
+from dags.infra.cloudwatch_logger import get_logger
 
 TASK_NAME = "transform"
 

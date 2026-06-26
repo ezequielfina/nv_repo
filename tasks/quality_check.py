@@ -13,8 +13,8 @@ import sys
 from datetime import date, datetime
 
 sys.path.insert(0, "/opt/airflow")
-from infra.cloudwatch_logger import get_logger
-from infra.db_hook import SalesDbHook
+from dags.infra.cloudwatch_logger import get_logger
+from dags.infra.db_hook import SalesDbHook
 
 TASK_NAME = "quality_check"
 

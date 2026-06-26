@@ -24,7 +24,8 @@ sys.path.insert(0, "/opt/airflow")
 from tasks.transform import run as transform_run
 from tasks.load import run as load_run
 from tasks.quality_check import run as quality_check_run
-from infra.slack_alert import send_slack_alert
+from dags.infra.slack_alert import send_slack_alert
+
 
 S3_BUCKET = os.environ.get("S3_BUCKET", "")
 RAW_KEY_TEMPLATE = "raw/sales/{{ ds }}/sales_{{ ds }}.csv"
