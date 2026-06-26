@@ -2,6 +2,9 @@ from airflow.providers.amazon.aws.operators.glue import GlueJobOperator
 from airflow import DAG
 from datetime import datetime, timedelta
 
+import sys
+sys.path.insert(0, "/opt/airflow")
+
 from dags.infra.slack_alert import send_slack_alert
 
 default_args = {
