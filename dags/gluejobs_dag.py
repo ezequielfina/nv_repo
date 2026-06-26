@@ -2,15 +2,14 @@ from airflow.providers.amazon.aws.operators.glue import GlueJobOperator
 from airflow.providers.amazon.aws.sensors.s3 import S3KeySensor
 from airflow import DAG
 from datetime import datetime, timedelta
-from infra.slack_alert import send_slack_alert
+
 
 default_args = {
 "owner": "data-engineering",
     "depends_on_past": False,
     "retries": 1,
     "retry_delay": timedelta(minutes=5),
-    "email_on_failure": False,
-    "on_failure_callback": send_slack_alert
+    "email_on_failure": False
 }
 
 with DAG(
